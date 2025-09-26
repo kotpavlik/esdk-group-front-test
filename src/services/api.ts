@@ -102,6 +102,16 @@ export const api = {
         phoneNumber: formData.phone,
         message: formData.message
       });
+      
+      // Проверяем статус 201 (Created)
+      if (response.status === 201) {
+        return {
+          success: true,
+          data: response.data.data,
+          message: 'Сообщение успешно отправлено'
+        };
+      }
+      
       return {
         success: true,
         data: response.data.data,

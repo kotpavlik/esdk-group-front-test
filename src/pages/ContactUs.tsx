@@ -1,4 +1,4 @@
-import { Card, Button, Form, Input, message } from 'antd'
+import { Card, Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -69,12 +69,58 @@ const ContactUs = () => {
 
     const onSubmit = async (data: FormData) => {
         const result = await submitForm(data)
+
         if (result.success) {
-            message.success('Форма успешно отправлена!')
+            // Показываем собственный попап
+            const popup = document.createElement('div')
+            popup.innerHTML = `✅ ${result.message || 'Сообщение успешно отправлено!'}`
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(82, 196, 26, 0.5);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                z-index: 99999;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                animation: fadeIn 0.3s ease;
+            `
+            document.body.appendChild(popup)
+
+            setTimeout(() => {
+                popup.remove()
+            }, 1500)
+
             reset()
             resetForm()
         } else {
-            message.error(result.error || 'Ошибка отправки формы')
+            // Показываем ошибку
+            const popup = document.createElement('div')
+            popup.innerHTML = `❌ ${result.error || 'Ошибка отправки формы'}`
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 77, 79, 0.5);
+                color: white;
+                padding: 16px 24px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: bold;
+                z-index: 99999;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                animation: fadeIn 0.3s ease;
+            `
+            document.body.appendChild(popup)
+
+            setTimeout(() => {
+                popup.remove()
+            }, 4000)
         }
     }
 
@@ -82,6 +128,7 @@ const ContactUs = () => {
         reset()
         resetForm()
     }
+
 
     return (
         <div className="min-h-screen min-w-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -180,18 +227,19 @@ const ContactUs = () => {
                                 loading={isLoading}
                                 disabled={isLoading}
                                 style={{
-                                    backgroundColor: 'transparent',
-                                    color: 'purple',
+                                    backgroundColor: isLoading ? '#f0f0f0' : 'transparent',
+                                    color: isLoading ? '#999' : 'purple',
                                     height: '50px',
                                     fontSize: 'clamp(12px, 2.5vw, 20px)',
                                     fontWeight: 'bold',
                                     borderRadius: '10px',
-                                    border: '1px solid purple',
+                                    border: isLoading ? '1px solid #ccc' : '1px solid purple',
                                     cursor: isLoading ? 'not-allowed' : 'pointer',
                                     transition: 'all 0.3s ease',
+                                    opacity: isLoading ? 0.6 : 1,
                                 }}
                             >
-                                {isLoading ? 'Отправка...' : '📤 Отправить сообщение'}
+                                {isLoading ? '⏳ Отправка...' : '📤 Отправить сообщение'}
                             </Button>
                         </Form.Item>
                     </Form>

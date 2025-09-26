@@ -19,7 +19,11 @@ export function useContactForm() {
 
       if (response.success) {
         setSuccess(true);
-        return { success: true, data: response.data };
+        return { 
+          success: true, 
+          data: response.data,
+          message: response.message 
+        };
       } else {
         setError(response.error || 'Неизвестная ошибка');
         return { success: false, error: response.error };
