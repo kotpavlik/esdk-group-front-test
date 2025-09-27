@@ -1,4 +1,7 @@
-import { Row, Col, Typography, Space } from 'antd'
+import { Row } from 'antd'
+import { Col } from 'antd'
+import { Typography } from 'antd'
+import { Space } from 'antd'
 import {
     EnvironmentOutlined,
     PhoneOutlined,

@@ -1,7 +1,17 @@
-import { Card, Button } from 'antd'
-import { Link } from 'react-router-dom'
+import { Button } from 'antd'
+import { Card } from 'antd'
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate('/contactus', { replace: true });
+    }
+
     return (
         <div className="  min-h-screen pb-15 min-w-screen bg-gradient-to-b from-blue-50 to-purple-200 relative">
             <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
@@ -52,27 +62,28 @@ const Home = () => {
                 </div>
 
                 {/* Кнопка перехода на вторую страницу */}
-                <div className="text-center">
-                    <Link to="/contactus">
-                        <Button
-                            size="large"
-                            className="custom-button"
-                            style={{
-                                backgroundColor: 'transparent',
-                                color: 'purple',
-                                width: '30%',
-                                height: '50px',
-                                fontSize: 'clamp(12px, 2.5vw, 20px)',
-                                fontWeight: 'bold',
-                                borderRadius: '10px',
-                                border: '1px solid purple',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease',
-                            }}
-                        >
-                            Написать нам
-                        </Button>
-                    </Link>
+                <div onClick={handleNavigate} className="text-center">
+
+                    <Button
+                        size="large"
+                        className="custom-button"
+
+                        style={{
+                            backgroundColor: 'transparent',
+                            color: 'purple',
+                            width: '30%',
+                            height: '50px',
+                            fontSize: 'clamp(12px, 2.5vw, 20px)',
+                            fontWeight: 'bold',
+                            borderRadius: '10px',
+                            border: '1px solid purple',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                        }}
+                    >
+                        Написать нам
+                    </Button>
+
                 </div>
             </div>
             <div className="w-full absolute -bottom-5 pb-10 overflow-hidden bg-black/20 backdrop-blur-sm py-4 z-10">

@@ -177,6 +177,56 @@ button {
   animation-play-state: paused;
 }
 
+/* Исправление для мобильных устройств */
+.ant-btn {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+.ant-btn:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Улучшение для мобильных кнопок */
+@media (max-width: 768px) {
+  .ant-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .ant-btn-lg {
+    min-height: 50px;
+    padding: 14px 20px;
+    font-size: 18px;
+  }
+}
+
+/* Анимация для мобильного меню */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
 /* Стили для Leaflet карты */
 .leaflet-container {
   background: #2c3e50;

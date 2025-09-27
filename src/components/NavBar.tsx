@@ -88,45 +88,43 @@ export const NavBar = () => {
                 <div className="absolute inset-0 bg-black/20 backdrop-blur-md -z-10"></div>
             </nav>
 
-            {/* Мобильное выезжающее меню */}
-            <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ease-in-out $`}>
-                {/* Затемняющий фон */}
-                <div
-                    className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
-                        }`}
-                    onClick={closeMobileMenu}
-                ></div>
+            {/* Мобильное выезжающее меню - рендерим только когда открыто */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden fixed inset-0 z-40">
+                    {/* Затемняющий фон */}
+                    <div
+                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                        onClick={closeMobileMenu}
+                    ></div>
 
-                {/* Меню с анимацией выезжания сверху */}
-                <div className={`absolute top-0 left-0 right-0 bg-white/10 backdrop-blur-md border-b border-white/20 transition-transform duration-300 ease-out ${isMobileMenuOpen
-                    ? 'translate-y-0'
-                    : '-translate-y-full'
-                    }`}>
-                    <div className="px-4 pt-20 pb-6 space-y-4">
-                        <Link
-                            to="/"
-                            onClick={closeMobileMenu}
-                            className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActive('/')
-                                ? 'bg-white/20 text-white'
-                                : 'text-white/80 hover:text-white hover:bg-white/10'
-                                }`}
-                        >
-                            Главная
-                        </Link>
+                    {/* Меню с анимацией выезжания сверху */}
+                    <div className="absolute top-0 left-0 right-0 bg-white/10 backdrop-blur-md border-b border-white/20 animate-slide-down">
+                        <div className="px-4 pt-20 pb-6 space-y-4">
+                            <Link
+                                to="/"
+                                onClick={closeMobileMenu}
+                                className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActive('/')
+                                    ? 'bg-white/20 text-white'
+                                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                                    }`}
+                            >
+                                Главная
+                            </Link>
 
-                        <Link
-                            to="/contactus"
-                            onClick={closeMobileMenu}
-                            className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActive('/contactus')
-                                ? 'bg-white/20 text-white'
-                                : 'text-white/80 hover:text-white hover:bg-white/10'
-                                }`}
-                        >
-                            Связаться с нами
-                        </Link>
+                            <Link
+                                to="/contactus"
+                                onClick={closeMobileMenu}
+                                className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActive('/contactus')
+                                    ? 'bg-white/20 text-white'
+                                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                                    }`}
+                            >
+                                Связаться с нами
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }

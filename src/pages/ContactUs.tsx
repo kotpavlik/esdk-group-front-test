@@ -320,7 +320,7 @@ const ContactUs = () => {
                         </Link>
                         <Button
                             size="large"
-                            className="custom-button"
+                            className="custom-button z-50 relative"
                             style={{
                                 backgroundColor: 'transparent',
                                 color: 'purple',
