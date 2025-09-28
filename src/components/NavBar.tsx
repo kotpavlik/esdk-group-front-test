@@ -23,7 +23,6 @@ export const NavBar = () => {
             <nav className="hidden md:block fixed top-0 left-0 right-0 z-60">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16 lg:h-20">
-                        {/* Навигационные ссылки слева */}
                         <div className="flex items-center space-x-6 lg:space-x-8">
                             <Link
                                 to="/"
@@ -47,19 +46,16 @@ export const NavBar = () => {
                                 Связаться с нами
                             </Link>
                         </div>
-
-                        {/* Название компании справа */}
                         <div className="flex-shrink-0">
                             <Link to="/" className="flex items-center">
                                 <div className="text-xl lg:text-2xl font-soledago text-white">
-                                    ESDK GROUP
+                                    ESKD GROUP
                                 </div>
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                {/* Полупрозрачный фон */}
                 <div className="absolute inset-0 bg-black/20 backdrop-blur-md -z-10"></div>
             </nav>
 
@@ -67,14 +63,13 @@ export const NavBar = () => {
             <nav className="md:hidden fixed top-0 left-0 right-0 z-50">
                 <div className="px-4 py-3">
                     <div className="flex justify-between items-center">
-                        {/* Название компании */}
+
                         <Link to="/" className="flex items-center">
                             <div className="text-lg font-soledago text-white">
-                                ESDK GROUP
+                                ESKD GROUP
                             </div>
                         </Link>
 
-                        {/* Кнопка MENU */}
                         <button
                             onClick={toggleMobileMenu}
                             className="text-white text-sm font-medium px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-200"
@@ -84,20 +79,17 @@ export const NavBar = () => {
                     </div>
                 </div>
 
-                {/* Полупрозрачный фон */}
                 <div className="absolute inset-0 bg-black/20 backdrop-blur-md -z-10"></div>
             </nav>
 
-            {/* Мобильное выезжающее меню - рендерим только когда открыто */}
+
             {isMobileMenuOpen && (
                 <div className="md:hidden fixed inset-0 z-40">
-                    {/* Затемняющий фон */}
                     <div
                         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                         onClick={closeMobileMenu}
                     ></div>
 
-                    {/* Меню с анимацией выезжания сверху */}
                     <div className="absolute top-0 left-0 right-0 bg-white/10 backdrop-blur-md border-b border-white/20 animate-slide-down">
                         <div className="px-4 pt-20 pb-6 space-y-4">
                             <Link

@@ -1,33 +1,25 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 
-// Конфигурация API
+
 const getApiBaseUrl = () => {
-  // Проверяем режим разработки
+  // Проверяем режим разработки из .env
   const isDev = import.meta.env.DEV;
   
-  console.log('isDev:', isDev);
-  console.log('NODE_ENV:', import.meta.env.NODE_ENV);
-  console.log('MODE:', import.meta.env.MODE);
   
-  // В development режиме используем localhost
+  // В development режиме используем localhost собственно 
   if (isDev) {
     return import.meta.env.VITE_BASE_URL_LOCAL || 'http://localhost:3001/api';
   }
   
-  // В production используем prod URL
+  // В production используем prod URL который у нас лежит на Railway
   return import.meta.env.VITE_BASE_URL_PROD || 'https://your-production-api.com/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();
 
-// Логирование для отладки
-console.log(`API Base URL: ${API_BASE_URL}`);
-console.log(`Environment: ${import.meta.env.NODE_ENV}`);
-console.log(`VITE_BASE_URL_LOCAL: ${import.meta.env.VITE_BASE_URL_LOCAL}`);
-console.log(`VITE_BASE_URL_PROD: ${import.meta.env.VITE_BASE_URL_PROD}`);
 
-// Создание экземпляра axios
+// Создаем экземпляра axios
 const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
@@ -39,11 +31,9 @@ const apiClient: AxiosInstance = axios.create({
 // Интерцептор запросов
 apiClient.interceptors.request.use(
   (config) => {
-    console.log(`Making ${config.method?.toUpperCase()} request to: ${config.url}`);
     return config;
   },
   (error) => {
-    console.error('Request interceptor error:', error);
     return Promise.reject(error);
   }
 );
@@ -51,20 +41,15 @@ apiClient.interceptors.request.use(
 // Интерцептор ответов
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log(`Response from ${response.config.url}:`, response.status);
     return response;
   },
   (error: AxiosError) => {
-    console.error('Response interceptor error:', error);
-    
+    // Если что-то пошло не так, то выводим ошибку в консоль
     if (error.response) {
-      // Сервер ответил с кодом ошибки
       console.error('Error response:', error.response.data);
     } else if (error.request) {
-      // Запрос был отправлен, но ответа не получено
       console.error('No response received:', error.request);
     } else {
-      // Что-то пошло не так при настройке запроса
       console.error('Request setup error:', error.message);
     }
     
@@ -72,7 +57,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-// Типы для API
+// Типы для API (моджно унести в отдельный файл, но у нас работа с 1 эндпоинтом, поэтому пусть будет тут)
 export interface ContactFormData {
   phone: string;
   message: string;
@@ -86,14 +71,15 @@ export interface IMessage {
   updatedAt: string;
 }
 
-export interface ApiResponse<T = unknown> {
+// data через дженерик unknow, потому что данные будут приходить разные, а в стейт менеджере каком либо мы бы их типизировали и не пропускали если дата приходила бы не та
+export interface ApiResponse<T = unknown > {
   success: boolean;
   data?: T;
   message?: string;
   error?: string;
 }
 
-// API функции
+// API функции я так же вынес бы в отдельный файл, но пара запросов, камон.
 export const api = {
   // Отправка формы обратной связи
   async submitContactForm(formData: ContactFormData): Promise<ApiResponse<IMessage>> {
@@ -102,8 +88,6 @@ export const api = {
         phoneNumber: formData.phone,
         message: formData.message
       });
-      
-      // Проверяем статус 201 (Created)
       if (response.status === 201) {
         return {
           success: true,
@@ -150,7 +134,7 @@ export const api = {
 };
   
 
-// Обработка ошибок API
+// Обработка ошибок. Тоже в отдельном файле будет лежать при увелечении проекта или если будем сразу знать, что проект будет не 2-3 запроса
 function handleApiError<T>(error: unknown): ApiResponse<T> {
   if (axios.isAxiosError(error)) {
     if (error.response) {

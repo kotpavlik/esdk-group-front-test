@@ -2,6 +2,8 @@ import { useState, useCallback } from 'react';
 import { api, apiUtils } from './api';
 import type { ContactFormData, ApiResponse, IMessage } from './api';
 
+// несколько простых хуков для работы с API. Я бы их с удовольствием заменил на Redux или Zustand,RTK, но для такого проекта это будет перебор
+
 // Хук для отправки формы обратной связи
 export function useContactForm() {
   const [isLoading, setIsLoading] = useState(false);

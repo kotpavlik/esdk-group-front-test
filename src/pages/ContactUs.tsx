@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useContactForm } from '../services'
 
-// Коды мобильных операторов Беларуси
+// Коды мобильных операторов Беларуси из интернетов 
 const BELARUS_MOBILE_OPERATOR_CODES = [
     '25', // life:)
     '29', // A1 и МТС (зависит от серии номера)
@@ -15,9 +15,9 @@ const BELARUS_MOBILE_OPERATOR_CODES = [
 
 
 
-/**
- * Проверяет, является ли номер белорусским (соответствует бекенду)
- */
+
+// Проверяет, является ли номер белорусским (соответствует бекенду)
+
 function isBelarusPhoneNumber(phoneNumber: string): boolean {
     // Нормализуем номер (убираем пробелы, дефисы и т.д.)
     const normalizedNumber = phoneNumber.replace(/[\s\-()]/g, '');
@@ -36,7 +36,7 @@ function isBelarusPhoneNumber(phoneNumber: string): boolean {
         internalLandlineRegex.test(normalizedNumber);
 }
 
-// Схема валидации с Yup (соответствует бекенду)
+// Валидейшн с Yup
 const schema = yup.object({
     phone: yup
         .string()
@@ -71,7 +71,7 @@ const ContactUs = () => {
         const result = await submitForm(data)
 
         if (result.success) {
-            // Показываем собственный попап
+            // Немного ванильного js для показа попапа
             const popup = document.createElement('div')
             popup.innerHTML = `✅ ${result.message || 'Сообщение успешно отправлено!'}`
             popup.style.cssText = `
@@ -98,7 +98,7 @@ const ContactUs = () => {
             reset()
             resetForm()
         } else {
-            // Показываем ошибку
+            // Если что-то пошло не так, то показываем ошибку с бекенда
             const popup = document.createElement('div')
             popup.innerHTML = `❌ ${result.error || 'Ошибка отправки формы'}`
             popup.style.cssText = `
@@ -245,7 +245,7 @@ const ContactUs = () => {
                     </Form>
                 </Card>
 
-                {/* Информация о валидации */}
+                {/* Информация о валидации для клиента */}
                 <Card title="🔍 Информация о валидации" className="shadow-lg w-full mb-6 sm:mb-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div className="p-4 bg-blue-50 rounded-lg">
@@ -270,7 +270,7 @@ const ContactUs = () => {
                     </div>
                 </Card>
 
-                {/* Технологии */}
+                {/* Технологии используемые в проекте */}
                 <Card title="🛠️ Используемые технологии" className="shadow-lg w-full mb-6 sm:mb-8">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                         <div className="text-center p-4 bg-blue-100 rounded-lg">

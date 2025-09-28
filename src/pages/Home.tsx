@@ -17,7 +17,7 @@ const Home = () => {
             <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
                 <h1 className="w-full text-3xl sm:text-4xl md:text-5xl font-soledago text-center text-purple-200 text-shadow-lg/20 text-shadow-gray-600 cursor-default relative overflow-hidden">
                     <span className="inline-block animate-fade-in-up animate-glow hover:animate-float transition-all duration-500 hover:scale-105 hover:text-purple-300">
-                        NIHAO ESDK GROUP
+                        NIHAO ESKD GROUP
                     </span>
                 </h1>
 
@@ -38,7 +38,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                {/* Информационные карточки */}
+                {/* Информационные карточки чтобы совсем грустно не было */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-8 mx-2 sm:mb-12">
                     <Card className="shadow-lg hover:shadow-xl transition duration-300 hover:scale-105 ">
                         <div className="text-center p-4">
@@ -61,7 +61,6 @@ const Home = () => {
                     </Card>
                 </div>
 
-                {/* Кнопка перехода на вторую страницу */}
                 <div onClick={handleNavigate} className="text-center">
 
                     <Button
@@ -87,6 +86,8 @@ const Home = () => {
                 </div>
             </div>
             <div className="w-full absolute -bottom-5 pb-10 overflow-hidden bg-black/20 backdrop-blur-sm py-4 z-10">
+
+                {/* Бегущая строка всегда красиво, пусть будет */}
                 <div className="marquee-container">
                     <div className="marquee-text">
                         <span className="text-purple-800 font-bold text-lg sm:text-xl">
